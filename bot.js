@@ -148,7 +148,7 @@ async function handleStartCommand(message) {
   const keyboard = {
     inline_keyboard: [[
       {
-        text: '🚀 Join Trading Channel',
+        text: '🚀 Join Now and Claim your free 100% Deposit Bonus',
         url: tradingChannelUrl
       }
     ]]
@@ -185,7 +185,7 @@ async function handleBasicStartCommand(message) {
   const keyboard = {
     inline_keyboard: [[
       {
-        text: '🚀 Join Trading Channel',
+        text: '🚀 Join Now and Claim your free 100% Deposit Bonus',
         url: tradingChannelUrl
       }
     ]]
