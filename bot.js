@@ -32,7 +32,7 @@ app.use(express.json());
 const botToken = process.env.TELEGRAM_BOT_TOKEN;
 const webhookUrl = process.env.TELEGRAM_WEBHOOK_URL;
 const port = process.env.PORT || 3000;
-const tradingChannelUrl = process.env.TRADING_CHANNEL_URL || 'https://t.me/your_trading_channel';
+const tradingChannelUrl = 'https://t.me/LFTai';
 
 if (!botToken) {
   logger.error('TELEGRAM_BOT_TOKEN is required in environment variables');
