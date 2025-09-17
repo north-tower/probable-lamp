@@ -32,6 +32,7 @@ app.use(express.json());
 const botToken = process.env.TELEGRAM_BOT_TOKEN;
 const webhookUrl = process.env.TELEGRAM_WEBHOOK_URL;
 const port = process.env.PORT || 3000;
+const tradingChannelUrl = process.env.TRADING_CHANNEL_URL || 'https://t.me/your_trading_channel';
 
 if (!botToken) {
   logger.error('TELEGRAM_BOT_TOKEN is required in environment variables');
@@ -141,21 +142,22 @@ async function handleStartCommand(message) {
                      `📊 Trusted by 1,000+ members already seeing results\n` +
                      `📢 Weekly updates, transparent results & 24/7 personal support line\n\n` +
                      `*This is about building steady growth.*\n\n` +
-                     `👉 *Join our free Telegram channel today to see live results, updates, and everything happening inside. Don't miss out on what others are already benefiting from.*\n\n` +
-                     `📊 *Your Tracking Details:*\n` +
-                     `┌─────────────────────────────────┐\n` +
-                     `│ 🆔 Click ID: \`${visitorId || 'N/A'}\`\n` +
-                     `│ 🎪 Campaign: \`${campaignId || 'N/A'}\`\n` +
-                     `│ 🌐 Zone: \`${zoneId || 'N/A'}\`\n` +
-                     `│ 🔗 Network: \`${network || 'N/A'}\`\n` +
-                     `└─────────────────────────────────┘\n\n` +
-                     `🎮 *Ready to get started?*\n` +
-                     `• Type \`register\` to join our trading community\n` +
-                     `• Type \`join\` to access exclusive trading signals\n` +
-                     `• Type \`subscribe\` for weekly market updates\n\n` +
-                     `🚀 *Your journey to consistent profits starts now!*`;
+                     `👉 *Join our free Telegram channel today to see live results, updates, and everything happening inside. Don't miss out on what others are already benefiting from.*`;
 
-  await bot.sendMessage(chatId, welcomeText, { parse_mode: 'Markdown' });
+  // Create inline keyboard with join button
+  const keyboard = {
+    inline_keyboard: [[
+      {
+        text: '🚀 Join Trading Channel',
+        url: tradingChannelUrl
+      }
+    ]]
+  };
+
+  await bot.sendMessage(chatId, welcomeText, { 
+    parse_mode: 'Markdown',
+    reply_markup: keyboard
+  });
 
   // Send postback for deep link start
   if (visitorId && network === 'prop') {
@@ -177,16 +179,22 @@ async function handleBasicStartCommand(message) {
                      `📊 Trusted by 1,000+ members already seeing results\n` +
                      `📢 Weekly updates, transparent results & 24/7 personal support line\n\n` +
                      `*This is about building steady growth.*\n\n` +
-                     `👉 *Join our free Telegram channel today to see live results, updates, and everything happening inside. Don't miss out on what others are already benefiting from.*\n\n` +
-                     `🎮 *Ready to get started?*\n` +
-                     `• Type \`register\` - Join our trading community\n` +
-                     `• Type \`signup\` - Create your trading account\n` +
-                     `• Type \`join\` - Access exclusive trading signals\n` +
-                     `• Type \`subscribe\` - Get weekly market updates\n` +
-                     `• Type \`confirm\` - Confirm your trading interest\n\n` +
-                     `🚀 *Your journey to consistent profits starts now!*`;
+                     `👉 *Join our free Telegram channel today to see live results, updates, and everything happening inside. Don't miss out on what others are already benefiting from.*`;
+
+  // Create inline keyboard with join button
+  const keyboard = {
+    inline_keyboard: [[
+      {
+        text: '🚀 Join Trading Channel',
+        url: tradingChannelUrl
+      }
+    ]]
+  };
   
-  await bot.sendMessage(chatId, welcomeText, { parse_mode: 'Markdown' });
+  await bot.sendMessage(chatId, welcomeText, { 
+    parse_mode: 'Markdown',
+    reply_markup: keyboard
+  });
 }
 
 // Handle help command
